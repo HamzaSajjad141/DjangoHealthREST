@@ -10,4 +10,6 @@ urlpatterns = [
     path('deletebyid/<int:id>/', views.DeleteDataById.as_view()),
     path('getbyagerange/<int:min_age>/<int:max_age>/', views.GetDataByAgeRange.as_view(),),
     path('getbygender/<str:gender>/', views.GetDataByGender.as_view()),
+    path('getfiltereddatabycriteria/<int:min_age>/<int:max_age>/<slug:min_bmi>/<slug:max_bmi>/<str:smoking_status>/', views.GetFilteredDataByCriteria.as_view()),
+    path('getaveragecharges/<str:region>/', views.RetrieveAverageChargesByRegion.as_view()),
 ]

@@ -4,8 +4,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import HealthInsaurenceData
 from .serializers import HealthInsaurenceDataSerializer
+from django.db.models import Avg
 
-# Example endpoints (replace with your specific requirements)
+# endpoints
 class GetAllData(APIView):
     def get(self, request):
         data = HealthInsaurenceData.objects.all()
@@ -103,3 +104,58 @@ class GetDataByGender(APIView):
 
 
 
+class GetFilteredDataByCriteria(APIView):
+    def get(self, request, min_age, max_age, min_bmi, max_bmi, smoking_status):
+        try:
+            min_age = int(min_age)
+            max_age = int(max_age)
+            min_bmi = float(min_bmi)
+            max_bmi = float(max_bmi)
+        except (ValueError, TypeError):
+            return Response({"error": "Invalid input. Please provide valid integers for age and floats for BMI."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if min_age < 0 or max_age < 0 or min_bmi < 0 or max_bmi < 0:
+            return Response({"error": "Age and BMI values cannot be negative."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if max_age < min_age:
+            return Response({"error": "max_age must be greater than or equal to min_age."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if max_bmi < min_bmi:
+            return Response({"error": "max_bmi must be greater than or equal to min_bmi."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if smoking_status.lower() not in ['yes', 'no']:
+            return Response({"error": "Invalid smoking status. Please provide 'yes' or 'no'."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        data = HealthInsaurenceData.objects.filter(
+            age__gte=min_age, age__lte=max_age,
+            bmi__gte=min_bmi, bmi__lte=max_bmi,
+            smoker=smoking_status.lower()
+        )
+
+        serializer = HealthInsaurenceDataSerializer(data, many=True)
+        return Response(serializer.data)
+
+
+
+
+
+
+
+class RetrieveAverageChargesByRegion(APIView):
+    def get(self, request, region):
+        try:
+            average_charges = HealthInsaurenceData.objects.filter(region=region).aggregate(Avg('charges'))['charges__avg']
+        except ZeroDivisionError:
+            return Response({"error": "No data available for the specified region."},
+                            status=status.HTTP_404_NOT_FOUND)
+        
+        if average_charges is not None:
+            return Response({"average_charges": average_charges})
+        else:
+            return Response({"error": "No data available for the specified region."},
+                            status=status.HTTP_404_NOT_FOUND)

@@ -4,6 +4,7 @@ from . import views
 app_name = "api"
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('getalldata/', views.GetAllData.as_view(), name='GetAllData'),
     path('smokers/<str:region>/', views.GetSmokersByRegion.as_view(), name='GetSmokersByRegion'),
     path('getbyid/<int:id>/', views.GetDataById.as_view(), name='GetDataById'),

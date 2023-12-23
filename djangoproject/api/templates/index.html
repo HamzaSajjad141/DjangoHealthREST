@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django REST API Endpoints</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+
+        a:hover {
+            border-bottom: 2px solid #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Django REST API Endpoints</h1>
+
+    <ul>
+        <li><a href="{% url 'api:GetAllData' %}">GetAllData</a></li>
+        <li><a href="{% url 'api:GetDataById' id=1 %}">GetDataById</a></li>
+        <li><a href="{% url 'api:GetSmokersByRegion' region='example_region' %}">GetSmokersByRegion</a></li>
+        <li><a href="{% url 'api:CreateData' %}">CreateData</a></li>
+        <li><a href="{% url 'api:UpdateDataById' id=1 %}">UpdateDataById</a></li>
+        <li><a href="{% url 'api:DeleteDataById' id=1 %}">DeleteDataById</a></li>
+        <li><a href="{% url 'api:GetDataByAgeRange' min_age=18 max_age=65 %}">GetDataByAgeRange</a></li>
+        <li><a href="{% url 'api:GetDataByGender' gender='male' %}">GetDataByGender</a></li>
+        <li><a href="{% url 'api:GetFilteredDataByCriteria' min_age=18 max_age=65 min_bmi=20.0 max_bmi=30.0 smoking_status='yes' %}">GetFilteredDataByCriteria</a></li>
+        <li><a href="{% url 'api:RetrieveAverageChargesByRegion' region='northwest' %}">RetrieveAverageChargesByRegion</a></li>
+    </ul>
+</body>
+</html>

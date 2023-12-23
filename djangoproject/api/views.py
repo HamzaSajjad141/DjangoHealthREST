@@ -6,6 +6,11 @@ from .models import HealthInsaurenceData
 from .serializers import HealthInsaurenceDataSerializer
 from django.db.models import Avg
 
+
+
+def index(request):
+    return render(request, 'index.html')
+
 # endpoints
 class GetAllData(APIView):
     def get(self, request):

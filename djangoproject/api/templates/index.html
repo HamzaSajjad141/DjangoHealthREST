@@ -7,14 +7,18 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-image: url('https://source.unsplash.com/random/1920x1080');
+            background-size: cover;
             margin: 0;
             padding: 0;
+            color: #fff;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            margin-top: 50px;
         }
 
         ul {
@@ -25,18 +29,26 @@
 
         li {
             margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         a {
             text-decoration: none;
-            color: #007BFF;
+            color: #fff;
             font-weight: bold;
             border-bottom: 2px solid transparent;
             transition: border-bottom 0.3s ease;
         }
 
         a:hover {
-            border-bottom: 2px solid #007BFF;
+            border-bottom: 2px solid #fff;
         }
     </style>
 </head>
@@ -44,16 +56,16 @@
     <h1>Django REST API Endpoints</h1>
 
     <ul>
-        <li><a href="{% url 'api:GetAllData' %}">GetAllData</a></li>
-        <li><a href="{% url 'api:GetDataById' id=1 %}">GetDataById</a></li>
-        <li><a href="{% url 'api:GetSmokersByRegion' region='example_region' %}">GetSmokersByRegion</a></li>
-        <li><a href="{% url 'api:CreateData' %}">CreateData</a></li>
-        <li><a href="{% url 'api:UpdateDataById' id=1 %}">UpdateDataById</a></li>
-        <li><a href="{% url 'api:DeleteDataById' id=1 %}">DeleteDataById</a></li>
-        <li><a href="{% url 'api:GetDataByAgeRange' min_age=18 max_age=65 %}">GetDataByAgeRange</a></li>
-        <li><a href="{% url 'api:GetDataByGender' gender='male' %}">GetDataByGender</a></li>
-        <li><a href="{% url 'api:GetFilteredDataByCriteria' min_age=18 max_age=65 min_bmi=20.0 max_bmi=30.0 smoking_status='yes' %}">GetFilteredDataByCriteria</a></li>
-        <li><a href="{% url 'api:RetrieveAverageChargesByRegion' region='northwest' %}">RetrieveAverageChargesByRegion</a></li>
+        <li><a href="{% url 'api:GetAllData' %}">Get All Data</a></li>
+        <li><a href="{% url 'api:GetDataById' id=1 %}">Get Data by ID</a></li>
+        <li><a href="{% url 'api:GetSmokersByRegion' region='example_region' %}">Get Smokers by Region</a></li>
+        <li><a href="{% url 'api:CreateData' %}">Create Data</a></li>
+        <li><a href="{% url 'api:UpdateDataById' id=1 %}">Update Data by ID</a></li>
+        <li><a href="{% url 'api:DeleteDataById' id=1 %}">Delete Data by ID</a></li>
+        <li><a href="{% url 'api:GetDataByAgeRange' min_age=18 max_age=65 %}">Get Data by Age Range</a></li>
+        <li><a href="{% url 'api:GetDataByGender' gender='male' %}">Get Data by Gender</a></li>
+        <li><a href="{% url 'api:GetFilteredDataByCriteria' min_age=18 max_age=65 min_bmi=20.0 max_bmi=30.0 smoking_status='yes' %}">Get Filtered Data by Criteria</a></li>
+        <li><a href="{% url 'api:RetrieveAverageChargesByRegion' region='northwest' %}">Retrieve Average Charges by Region</a></li>
     </ul>
 </body>
 </html>
